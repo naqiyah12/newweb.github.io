@@ -1,0 +1,133 @@
+<DOCTYPE html>
+    <html>
+
+    <head>
+        <title>Formulir Pendaftaran</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background: white;
+                height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .container {
+                background: white;
+                padding: 30px 40px;
+                border-radius: 10px;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            h2 {
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            
+            input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: blue;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            
+            button:hover {
+                background-color: blue;
+            }
+            
+            .error {
+                color: red;
+                font-size: 14px;
+                margin-top: -10px;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>Formulir Pendaftaran</h2>
+            <form id="formPendaftaran" onsubmit="return validasiForm()">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama">
+
+                <label for="email">Email:</label>
+                <input type="text" id="email">
+
+                <label for="password">Kata Sandi:</label>
+                <input type="password" id="password">
+
+                <label for="konfirmasi">Konfirmasi Kata Sandi:</label>
+                <input type="password" id="konfirmasi">
+
+                <p class="error" id="pesanError"></p>
+
+                <button type="submit">Daftar</button>
+            </form>
+        </div>
+
+        <script>
+            function validasiForm() {
+                const nama = document.getElementById("nama").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value;
+                const konfirmasi = document.getElementById("konfirmasi").value;
+                const errorEl = document.getElementById("pesanError");
+
+                errorEl.innerText = "";
+
+                if (!nama || !email || !password || !konfirmasi) {
+                    errorEl.innerText = "Semua kolom wajib diisi.";
+                    return false;
+                }
+
+                if (email.indexOf("@") === -1 || email.indexOf(".com") === -1) {
+                    errorEl.innerText = "Email tidak valid. Harus mengandung '@' dan '.com'.";
+                    return false;
+                }
+
+                if (password.length < 6) {
+                    errorEl.innerText = "Kata sandi harus minimal 6 karakter.";
+                    return false;
+                }
+
+                if (password !== konfirmasi) {
+                    errorEl.innerText = "Konfirmasi kata sandi tidak sesuai.";
+                    return false;
+                }
+
+                alert("Pendaftaran Berhasil!");
+                return true;
+            }
+        </script>
+    </body>
+
+    </html>
